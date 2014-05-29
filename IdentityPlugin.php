@@ -1,3 +1,4 @@
+<?php
 /**
 
 * IdentityPlugin
@@ -16,7 +17,8 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 
 public function aftersave($args)
 {
-     if($args['post']) {
+     if($args['post']) 
+     {
      // Do someting with the POST data. 
      // get a list of items
 
@@ -28,7 +30,7 @@ public function aftersave($args)
        
          if (strpos($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$')== false and 
             (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false) 
-         {
+         { 
            // minting an ARK using NOID 
            $str = exec ("noid -f $path mint 1"); 
            // strip out the warning and just include the ark information
@@ -37,9 +39,10 @@ public function aftersave($args)
  
           // bind the title of the item into the noid metadata cache
            $title = item('Dublic Core', 'Title');  
-           $str_bind = exec("noid bind set $ark $title); 
+           $str_bind = exec("noid bind set $ark $title"); 
             
-           // convert the ARK to CleanUrl ARK 
+          // convert the ARK to CleanUrl ARK  
+
            $clear_url_ark = ltrim ($clear_url_ark, '/'); 
            $clear_url_ark = str_replace("/", "_", $ark);
            
@@ -47,11 +50,11 @@ public function aftersave($args)
  
            Omeka_Record->save();
             
-         }  // if item has no cleanUrl ARK but has a proper ARK 
+         
+         } // if item has no cleanUrl ARK but has a proper ARK 
          elseif (strpos($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$')== true and 
             (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false) 
-         {
-    
+         { 
            $clear_url_ark = ltrim ($clear_url_ark, '/'); 
            $clear_url_ark = str_replace("/", "_", $ark);
       
@@ -68,7 +71,6 @@ public function aftersave($args)
      }
 }
 
-
-
 }
 
+?>
