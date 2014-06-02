@@ -47,7 +47,11 @@ public function aftersave($args)
            $clear_url_ark = str_replace("/", "_", $ark);
            
            $identifier_field = $clear_url_ark;
- 
+            
+           // set the identifier field
+           set_current_item($identifier_field);
+
+           // save the record  
            Omeka_Record->save();
             
          
@@ -60,6 +64,10 @@ public function aftersave($args)
       
            $identifier_field = $clear_url_ark;
 
+           // set the identifier field
+           set_current_item($identifier_field);
+          
+           // save the record 
            Omeka_Record->save();
  
 	 } // if the iteam has a CleanUrl Ark, do nothing proceed to save
