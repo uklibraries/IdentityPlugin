@@ -29,7 +29,7 @@ public function aftersave($args)
         // #^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$# (CleanUrl ARK) 
        
          if (strpos($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$')== false and 
-            (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false) 
+            (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false))
          { 
            // minting an ARK using NOID 
            $str = exec ("noid -f $path mint 1"); 
@@ -52,12 +52,12 @@ public function aftersave($args)
            set_current_item($identifier_field);
 
            // save the record  
-           Omeka_Record->save();
+           //Omeka_Record->save();
             
          
          } // if item has no cleanUrl ARK but has a proper ARK 
          elseif (strpos($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$')== true and 
-            (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false) 
+            (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false))
          { 
            $clear_url_ark = ltrim ($clear_url_ark, '/'); 
            $clear_url_ark = str_replace("/", "_", $ark);
@@ -68,13 +68,13 @@ public function aftersave($args)
            set_current_item($identifier_field);
           
            // save the record 
-           Omeka_Record->save();
+           //Omeka_Record->save();
  
 	 } // if the iteam has a CleanUrl Ark, do nothing proceed to save
          elseif (strpos($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == true) 
          {
            // proceed to save
-           Omeka_Record->save(); 
+           //Omeka_Record->save(); 
          } 
      }
 }
