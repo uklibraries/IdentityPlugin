@@ -13,9 +13,12 @@
  */
 class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 {
-    public function aftersave($args)
+    // Add a hook
+    protected $_hooks = array('before_save_item'); 
+
+    public function beforeSaveItem($item)
     {
-        if ($args['post'])
+        if ($item['post'])
         {
             // Do someting with the POST data.
             // get a list of items
