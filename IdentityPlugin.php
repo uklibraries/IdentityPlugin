@@ -11,6 +11,9 @@
  *
  * @package Omeka\Plugins\Identity
  */
+
+include 'MintIdentifier.php'; 
+
 class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 {
     // Add a hook
@@ -32,11 +35,9 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
             if (preg_match($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$') == false and
                 (preg_match($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false))
             {
-                // minting an ARK using NOID
-                $str = exec("noid -f $path mint 1");
-                // strip out the warning and just include the ark information
-                $del = "id:";
-                $ark = strpos($str, $del);
+                // calling background job to mint an ARK using NOID
+                $mint_ark = new MintIdentifier;
+                $ark = $mint_ark->mint();
 
                 // bind the title of the item into the noid metadata cache
                 $title = item('Dublic Core', 'Title');
