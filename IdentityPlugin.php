@@ -38,6 +38,9 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
                 // calling background job to mint an ARK using NOID
                 $mint_ark = new MintIdentifier;
                 $ark = $mint_ark->mint();
+                // strip out the warning and just include the ark information
+                $del = "id:";
+                $ark = strpos($str, $del);
 
                 // bind the title of the item into the noid metadata cache
                 $title = item('Dublic Core', 'Title');
