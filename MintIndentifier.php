@@ -19,7 +19,7 @@ class MintIdentifier extends Omeka_Job_AbstractJob
 	{
 	        // minting an ARK using NOID
                 Zend_Registry::get('job_dispatcher')->sendLongRunning(
-                'Neatline_ImportItems', array('noid', '-f', '$path', 'mint', '1')
+                'Neatline_ImportItems', array('noid', '-f', '$noid_path', 'mint', '1')
                ); 
 
 	}
