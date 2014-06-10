@@ -1,0 +1,14 @@
+[info]
+name="Identity Plugin"
+author="Richard Maiti"
+description="Identity plugin to make sure that each item in the digital library has an ARK identifier"
+license="MIT"
+link=""
+noid_path=""
+noid_path_executable=""
+support_link=""
+version="0.0.0"
+omeka_minimum_version="2.0"
+omeka_target_version="2.1"
+tags=""
+
