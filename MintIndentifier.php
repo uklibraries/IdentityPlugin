@@ -12,6 +12,11 @@
  * @package Omeka\Plugins\Identity
  */
 
+
+// read the noid path from the properties file
+$ini_array = parse_ini_file("plugin.ini");
+$noid_path = $ini_array['noid_path'];
+
 class MintIdentifier extends Omeka_Job_AbstractJob
 {
 

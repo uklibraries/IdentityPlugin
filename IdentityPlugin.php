@@ -56,8 +56,6 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
                 // set the identifier field
                 set_current_item($identifier_field);
 
-                // save the record
-                //Omeka_Record->save();
             } // if item has no cleanUrl ARK but has a proper ARK
             elseif (preg_match($item,'^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$')== true and
                     (preg_match($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == false))
@@ -70,14 +68,11 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
                 // set the identifier field
                 set_current_item($identifier_field);
 
-                // save the record
-                //Omeka_Record->save();
 
             } // if the iteam has a CleanUrl Ark, do nothing proceed to save
             elseif (preg_match($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$') == true)
             {
-                // proceed to save
-                //Omeka_Record->save();
+                // do nothing 
             }
         }
     }
