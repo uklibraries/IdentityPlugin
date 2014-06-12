@@ -17,9 +17,9 @@ include 'MintIdentifier.php';
 class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 {
     // Add a hook
-    protected $_hooks = array('before_save_item'); 
+    protected $_hooks = array('after_save_item'); 
 
-    public function beforeSaveItem($item)
+    public function afterSaveItem($item)
     {
         if ($item['post'])
         {
