@@ -32,8 +32,23 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
             // #^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$# (proper ARK)
             // #^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$# (CleanUrl ARK)
 
-            if (preg_match('^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$', $item) == false and
-                (preg_match($item, '^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == false))
+
+            if (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == true)
+            {
+                // do nothing if the item has a CleanUrl Ark 
+            } // if item has no cleanUrl ARK but has a proper ARK
+            elseif (preg_match('^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$', $item)== true and
+                    (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == false))
+            {
+                $clear_url_ark = ltrim($clear_url_ark, '/');
+                $clear_url_ark = str_replace("/", "_", $ark);
+
+                $identifier_field = $clear_url_ark;
+
+                // set the identifier field
+                set_current_item($identifier_field);
+            }
+            else 
             {
                 // calling background job to mint an ARK using NOID
                 $mint_ark = new MintIdentifier;
@@ -55,25 +70,7 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 
                 // set the identifier field
                 set_current_item($identifier_field);
-
-            } // if item has no cleanUrl ARK but has a proper ARK
-            elseif (preg_match('^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$', $item)== true and
-                    (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == false))
-            {
-                $clear_url_ark = ltrim($clear_url_ark, '/');
-                $clear_url_ark = str_replace("/", "_", $ark);
-
-                $identifier_field = $clear_url_ark;
-
-                // set the identifier field
-                set_current_item($identifier_field);
-
-
-            } // if the iteam has a CleanUrl Ark, do nothing proceed to save
-            elseif (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == true)
-            {
-                // do nothing 
-            }
+            } 
         }
     }
 }
