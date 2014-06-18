@@ -49,7 +49,7 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
                 // convert the ARK to CleanUrl ARK
 
                 $clear_url_ark = ltrim($clear_url_ark, '/');
-                $clear_url_ark = str_replace("/", "_", $ark);
+                $clear_url_ark = str_replace("/", "_", $clean_url_ark);
 
                 $identifier_field = $clear_url_ark;
 
