@@ -14,8 +14,9 @@
 
 include 'MintIdentifier.php'; 
 
-class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
+class IdentityPlugin extends Omeka_Plugin_AbstractPlugin  
 {
+
     // Add a hook
     protected $_hooks = array('after_save_item'); 
 
@@ -47,6 +48,8 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 
                 // set the identifier field
                 set_current_item($identifier_field);
+                $s = new Omeka_AbstractRecord(); 
+                $s->save();
             }
             else 
             {
@@ -70,6 +73,8 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 
                 // set the identifier field
                 set_current_item($identifier_field);
+                $s = new Omeka_AbstractRecord();
+                $s->save(); 
             } 
         }
     }
