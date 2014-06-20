@@ -28,18 +28,27 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
             // get a list of items
 
             $item = $item ? $item : get_current_item();
+            $elements = $item->getItemTypeElements();
+            foreach ($elements as $element) {
+               $elementText[$element->name] = item(ELEMENT_SET_ITEM_TYPE, $element->name);
+               if ($element->name == 'Identifier')
+               {
+                   $identifier_field = $element->value;  
+               }
+            }
+
 
             // Check to see if the item has no CleanUrl ARK and no proper ARK
             // #^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$# (proper ARK)
             // #^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$# (CleanUrl ARK)
 
 
-            if (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == true)
+            if (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $identifier_field) == true)
             {
                 // do nothing if the item has a CleanUrl Ark 
             } // if item has no cleanUrl ARK but has a proper ARK
-            elseif (preg_match('^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$', $item)== true and
-                    (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $item) == false))
+            elseif (preg_match('^ark:/\d{5}/[0-9bcdfghjkmnpqrstvwxz]+$', $identifier_field)== true and
+                    (preg_match('^ark:\d{5}_[0-9bcdfghjkmnpqrstvwxz]+$', $identifier_field) == false))
             {
                 $clear_url_ark = ltrim($clear_url_ark, '/');
                 $clear_url_ark = str_replace("/", "_", $ark);
