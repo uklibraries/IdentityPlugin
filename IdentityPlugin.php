@@ -14,6 +14,10 @@
 
 include 'MintIdentifier.php'; 
 
+// read the noid path from the properties file
+$ini_array = parse_ini_file("plugin.ini");
+$noid_path = $ini_array['noid_path'];
+
 class IdentityPlugin extends Omeka_Plugin_AbstractPlugin  
 {
 
@@ -63,8 +67,11 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
             else 
             {
                 // calling background job to mint an ARK using NOID
-                $mint_ark = new MintIdentifier;
-                $ark = $mint_ark->mint();
+                Zend_Registry::get('job_dispatcher')->sendLongRunning(
+                'MintIdentifier', array('noid', '-f', '$noid_path', 'mint', '1')
+               );
+
+
                 // strip out the warning and just include the ark information
                 $del = "id:";
                 $ark = strpos($str, $del);
