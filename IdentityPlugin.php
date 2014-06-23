@@ -26,6 +26,23 @@ class IdentityPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function afterSaveItem($item)
     {
+
+       // test cases    
+       if (!empty($argv[0]))
+       {  
+         if ($argv[0] == 1)
+         {
+           // proper ARK
+           $identifier_field = 'ark:/16417/xt705q4rjf6g';
+         }
+         elseif ($argv[0] == 2)
+         {
+           // CleanUrl ARK
+           $identifier_field = 'ark:16417_xt705q4rjf6g'; 
+         }
+        }
+
+
         if ($item['post'])
         {
             // Do someting with the POST data.
